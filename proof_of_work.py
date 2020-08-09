@@ -1,6 +1,7 @@
 """ 
 A hashcash-based proof of work simulation
 Author: Rox Avinante, UP EEEI
+© 2020 All Rights Reserved
 
 Proof-of-Work is a consensus algorithm that is used to validate transactions 
 and broadcast new blocks to the blockchain. Block validators or often called 
@@ -31,6 +32,7 @@ if __name__ == '__main__':
     print("Difficulty: {0}".format(difficulty))
     print("Mining...")
     start_time = time.time();
+    
     # A block consists of the hash of the blockheader (prevblockhash, merkle tree, and nonce)
     # We just assume that we have the value of the the prevblockhash
 
