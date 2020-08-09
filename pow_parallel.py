@@ -38,6 +38,7 @@ if __name__ == '__main__':
     difficulty = int(sys.argv[1])
     #print("Mining...")
     start_time = time.time();
+    
     # A block consists of the hash of the blockheader (prevblockhash, merkle tree, and nonce)
     # We just assume that we have the value of the the prevblockhash
 
@@ -46,19 +47,26 @@ if __name__ == '__main__':
     # We use a hypothetical personal identity record as data/transactions in the proposed block.
     raw_records = urlopen("https://raw.githubusercontent.com/roxavinante/blockchain/master/records.json")
     transactions = raw_records.read()
-    # print(transactions)
+    print(transactions)
 
     # Transactions in a block are tamper-proof and immutable. Merkle root is the hash of all the transactions in a block.
     # We assume that the data are stored in a Merkle tree
     merkle_root = hashlib.sha256('{0}'.format(transactions).encode('utf-8')).hexdigest()
-    # print("Merkle Root: {0}\n".format(merkle_root))
+    print("Merkle Root: {0}\n".format(merkle_root))
     block_header = prev_block_hash + merkle_root
 
     # Next, we will look for the valid nonce that will suffice to find the target (hash value of the new block) using brute force
 
-    # print("Difficulty: {0}\n".format(difficulty))
+    print("Difficulty: {0}\n".format(difficulty))
     nonce = 0
     task_index = 0
+    """
+    Split up the jobs per rank
+    E.g. n = 4 processors
+    Rank 0 will do the iteration 0, 4, 8, 12, 16, ...
+    Rank 1 will do the tasks 1, 5, 9, 13, 17, ... 
+    and so on.
+    """
     while True:
         if task_index%size!=rank:
             task_index +=1
@@ -66,7 +74,7 @@ if __name__ == '__main__':
             continue
         hash_value = hashlib.sha256('{0}{1}'.format(block_header, nonce).encode('utf-8')).hexdigest()
         print("Try Nonce: {0} => Hash Result: {1} | Rank: {2}, Size: {3}, Node: {4}".format(nonce, hash_value, rank, size, name))
-        i += 1
+        task_index += 1
         nonce += 1
         # Hash difficulty - hash having specific number of leading zeros.
         # The hash value is the fingerprint of the current block and will then be linked to the succeeding blocks.
