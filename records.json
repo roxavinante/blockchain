@@ -1,0 +1,57 @@
+[
+  {
+    "fullname": "Dodson Reyes",
+    "birthdate": "1977-04-10",
+    "birthplace": "750 Kimball Street, Omar, Hawaii, 7558",
+    "gender": "male",
+    "mothersname": "Teri Beck",
+    "fathersname": "Suarez Goff",
+    "email": "suarezgoff@sustenza.com",
+    "phone": "+1 (960) 456-2166",
+    "address": "502 Harrison Place, Roosevelt, Florida, 2696"
+  },
+  {
+    "fullname": "Winnie Hudson",
+    "birthdate": "2015-02-28",
+    "birthplace": "863 Strickland Avenue, Nash, Tennessee, 3077",
+    "gender": "female",
+    "mothersname": "Mabel Holman",
+    "fathersname": "Stevenson Workman",
+    "email": "stevensonworkman@sustenza.com",
+    "phone": "+1 (950) 484-2184",
+    "address": "146 Arion Place, Belleview, North Dakota, 6246"
+  },
+  {
+    "fullname": "Isabelle Stone",
+    "birthdate": "2016-03-25",
+    "birthplace": "654 Estate Road, Romeville, Kansas, 2517",
+    "gender": "female",
+    "mothersname": "Augusta Humphrey",
+    "fathersname": "Hewitt Hooper",
+    "email": "hewitthooper@sustenza.com",
+    "phone": "+1 (883) 494-2747",
+    "address": "233 Grattan Street, Valmy, Indiana, 4581"
+  },
+  {
+    "fullname": "Greta Ellison",
+    "birthdate": "2006-05-24",
+    "birthplace": "545 Temple Court, Outlook, New Mexico, 2731",
+    "gender": "female",
+    "mothersname": "Bishop Richards",
+    "fathersname": "Walters Lowery",
+    "email": "walterslowery@sustenza.com",
+    "phone": "+1 (874) 467-2832",
+    "address": "894 Homecrest Avenue, Marysville, Georgia, 9892"
+  },
+  {
+    "fullname": "Odessa Kaufman",
+    "birthdate": "1949-05-29",
+    "birthplace": "287 Hooper Street, Verdi, New Hampshire, 2430",
+    "gender": "female",
+    "mothersname": "Hilda Stuart",
+    "fathersname": "Kathleen Quinn",
+    "email": "kathleenquinn@sustenza.com",
+    "phone": "+1 (844) 574-3399",
+    "address": "708 Roebling Street, Hamilton, Kentucky, 6056"
+  }
+]
