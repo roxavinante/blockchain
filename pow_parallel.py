@@ -74,7 +74,6 @@ if __name__ == '__main__':
         if target == ('0' * difficulty):
             end_time = time.time();
             mining_time = end_time - start_time
-
             print("\n")
             print("Difficulty/Number of Leading Zeros: {0}".format(difficulty))
             print("Final Nonce: {0}".format(nonce))
