@@ -14,14 +14,18 @@ How to run the script
 $ mpirun.openmpi -np <number of nodes or processes> -machinefile <hosts> python pow_parallel.py <level of difficulty>
 e.g.
 $ mpirun.openmpi -np 3 -machinefile nodes python pow_parallel.py 3
+
+Each of the processes is assigned a unique rank.
+When an MPI program is run, each process consists of the same code and will be distributed across nodes.
 """
 
 from mpi4py import MPI
 import hashlib
 import sys
-import urllib2
+#import urllib2
 import random
 import time
+from urllib.request import urlopen
 
 comm = MPI.COMM_WORLD
 size = comm.Get_size()
@@ -41,7 +45,7 @@ if __name__ == '__main__':
     prev_block_hash = hashlib.sha256(b'{0}'.format(random.random())).hexdigest()
 
     # We use a hypothetical personal identity record as data/transactions in the proposed block.
-    raw_records = urllib2.urlopen("https://raw.githubusercontent.com/roxavinante/blockchain/master/records.json")
+    raw_records = urlopen("https://raw.githubusercontent.com/roxavinante/blockchain/master/records.json")
     transactions = raw_records.read()
     print(transactions)
     
