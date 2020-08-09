@@ -11,9 +11,9 @@ the block to the network where all the other block validators will then verify t
 the solution is correct.
 
 How to run the script
-python proof_of_work.py <difficulty level> - number of leading zeros
+python3 proof_of_work.py <difficulty level> - number of leading zeros
 e.g.
-$ python proof_of_work.py 3 or
+$ python3 proof_of_work.py 3 or
 $ ./proof_of_work.py 3
 """
 
