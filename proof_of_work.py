@@ -2,6 +2,7 @@
 A hashcash-based proof of work simulation
 Author: Rox Avinante, UP EEEI
 © 2020 All Rights Reserved
+Version: Python 2.7.18
 
 Proof-of-Work is a consensus algorithm that is used to validate transactions 
 and broadcast new blocks to the blockchain. Block validators or often called 
