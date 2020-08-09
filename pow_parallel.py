@@ -27,10 +27,6 @@ import random
 import time
 from urllib.request import urlopen
 
-comm = MPI.COMM_WORLD
-size = comm.Get_size()
-rank = comm.Get_rank()
-name = MPI.Get_processor_name()
 
 if __name__ == '__main__':
 
@@ -42,7 +38,7 @@ if __name__ == '__main__':
     # A block consists of the hash of the blockheader (prevblockhash, merkle tree, and nonce)
     # We just assume that we have the value of the the prevblockhash
 
-    prev_block_hash = hashlib.sha256(b'{0}'.format(random.random())).hexdigest()
+    prev_block_hash = hashlib.sha256('{0}'.format(random.random()).encode('utf-8')).hexdigest()
 
     # We use a hypothetical personal identity record as data/transactions in the proposed block.
     raw_records = urlopen("https://raw.githubusercontent.com/roxavinante/blockchain/master/records.json")
@@ -51,7 +47,7 @@ if __name__ == '__main__':
     
     # Transactions in a block are tamper-proof and immutable. Merkle root is the hash of all the transactions in a block.
     # We assume that the data are stored in a Merkle tree
-    merkle_root = hashlib.sha256(b'{0}'.format(transactions)).hexdigest()
+    merkle_root = hashlib.sha256('{0}'.format(transactions).encode('utf-8')).hexdigest()
     print("Merkle Root: {0}\n".format(merkle_root))
     block_header = prev_block_hash + merkle_root
 
@@ -59,8 +55,12 @@ if __name__ == '__main__':
 
     print("Difficulty: {0}\n".format(difficulty))
     nonce = 0
+    comm = MPI.COMM_WORLD
+    size = comm.Get_size()
+    rank = comm.Get_rank()
+    name = MPI.Get_processor_name()
     while True:
-        hash_value = hashlib.sha256(b'{0}{1}'.format(block_header, nonce)).hexdigest()
+        hash_value = hashlib.sha256(b'{0}{1}'.format(block_header, nonce).encode('utf-8')).hexdigest()
         print("Try Nonce: {0} => Hash Result: {1} | Rank: {2}, Size: {3}, Node: {4}".format(nonce, hash_value, rank, size, name))
         nonce += 1
 
