@@ -1,8 +1,6 @@
 """ 
 A hashcash-based proof of work simulation
 Author: Rox Avinante, UP EEEI
-© 2020 All Rights Reserved
-Version: Python 2.7.18
 
 Proof-of-Work is a consensus algorithm that is used to validate transactions 
 and broadcast new blocks to the blockchain. Block validators or often called 
@@ -21,7 +19,7 @@ $ ./proof_of_work.py 3
 
 import hashlib
 import sys
-import urllib2
+from urllib.request import urlopen
 import random
 import time
 
@@ -30,33 +28,32 @@ if __name__ == '__main__':
     # The blockchain network sets the difficulty level of the target
     # Mining is essentially finding a hash having a specific number of leading zeros
     difficulty = int(sys.argv[1])
-    print("Difficulty: {0}".format(difficulty))
     print("Mining...")
     start_time = time.time();
-    
+
     # A block consists of the hash of the blockheader (prevblockhash, merkle tree, and nonce)
     # We just assume that we have the value of the the prevblockhash
 
-    prev_block_hash = hashlib.sha256(b'{0}'.format(random.random())).hexdigest()
+    prev_block_hash = hashlib.sha256('{0}'.format("prevblockhash").encode('utf-8')).hexdigest()
 
     # We use a hypothetical personal identity record as data/transactions in the proposed block.
-    raw_records = urllib2.urlopen("https://raw.githubusercontent.com/roxavinante/blockchain/master/records.json")
+    raw_records = urlopen("https://raw.githubusercontent.com/roxavinante/blockchain/master/records.json")
     transactions = raw_records.read()
     print(transactions)
     
     # Transactions in a block are tamper-proof and immutable. Merkle root is the hash of all the transactions in a block.
     # We assume that the data are stored in a Merkle tree
-    merkle_root = hashlib.sha256(b'{0}'.format(transactions)).hexdigest()
-    print("Merkle Root: {0}".format(merkle_root))
-
+    merkle_root = hashlib.sha256('{0}'.format(transactions).encode('utf-8')).hexdigest()
+    print("Merkle Root: {0}\n".format(merkle_root))
     block_header = prev_block_hash + merkle_root
 
     # Next, we will look for the valid nonce that will suffice to find the target (hash value of the new block) using brute force
 
+    print("Difficulty: {0}\n".format(difficulty))
     nonce = 0
     while True:
-        hash_value = hashlib.sha256(b'{0}{1}'.format(block_header, nonce)).hexdigest()
-        print("Try Nonce: {0} => Hash Result: {1}".format(nonce, hash_value))
+        hash_value = hashlib.sha256('{0}{1}'.format(block_header, nonce).encode('utf-8')).hexdigest()
+        print("Nonce: {0} => H(PrevBlockHash | Nonce | Merkle Root): {1}".format(nonce, hash_value))
         nonce += 1
 
         # Hash difficulty - hash having specific number of leading zeros.
