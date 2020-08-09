@@ -33,7 +33,6 @@ if __name__ == '__main__':
     # The blockchain network sets the difficulty level of the target
     # Mining is essentially finding a hash having a specific number of leading zeros
     difficulty = int(sys.argv[1])
-    print("Difficulty: {0}".format(difficulty))
     print("Mining...")
     start_time = time.time();
     # A block consists of the hash of the blockheader (prevblockhash, merkle tree, and nonce)
@@ -49,12 +48,12 @@ if __name__ == '__main__':
     # Transactions in a block are tamper-proof and immutable. Merkle root is the hash of all the transactions in a block.
     # We assume that the data are stored in a Merkle tree
     merkle_root = hashlib.sha256(b'{0}'.format(transactions)).hexdigest()
-    print("Merkle Root: {0}".format(merkle_root))
-
+    print("Merkle Root: {0}\n".format(merkle_root))
     block_header = prev_block_hash + merkle_root
 
     # Next, we will look for the valid nonce that will suffice to find the target (hash value of the new block) using brute force
 
+    print("Difficulty: {0}\n".format(difficulty))
     nonce = 0
     while True:
         hash_value = hashlib.sha256(b'{0}{1}'.format(block_header, nonce)).hexdigest()
