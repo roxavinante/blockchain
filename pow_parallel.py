@@ -11,12 +11,9 @@ the block to the network where all the other block validators will then verify t
 the solution is correct.
 
 How to run the script
-$ mpirun.openmpi -np <number of nodes or processes> -machinefile <hosts> python pow_parallel.py <level of difficulty>
+$ mpiexec --hostfile hostfile -n <number of processes> python3 pow_parallel.py <level of difficulty>
 e.g.
-$ mpirun.openmpi -np 3 -machinefile nodes python pow_parallel.py 3
-
-Each of the processes is assigned a unique rank.
-When an MPI program is run, each process consists of the same code and will be distributed across nodes.
+$ mpiexec --hostfile hostfile -n 4 python3 pow_parallel.py 2 
 """
 
 from mpi4py import MPI
@@ -65,16 +62,17 @@ if __name__ == '__main__':
     E.g. n = 4 processors
     Rank 0 will do the iteration 0, 4, 8, 12, 16, ...
     Rank 1 will do the tasks 1, 5, 9, 13, 17, ... 
-    and so on.
+    Rank 2 will do the tasks 2, 6, 10, 14, 18 …
+    Rank 3 will execute the jobs 7, 11, 15, 19, ...
     """
     while True:
         if task_index%size!=rank:
             task_index +=1
             nonce += 1
-            continue
+            continue #skip the loop and iterate again
         hash_value = hashlib.sha256('{0}{1}'.format(block_header, nonce).encode('utf-8')).hexdigest()
         print("Try Nonce: {0} => Hash Result: {1} | Rank: {2}, Size: {3}, Node: {4}".format(nonce, hash_value, rank, size, name))
-        task_index += 1
+        task_index += 1 
         nonce += 1
         # Hash difficulty - hash having specific number of leading zeros.
         # The hash value is the fingerprint of the current block and will then be linked to the succeeding blocks.
