@@ -27,6 +27,10 @@ import random
 import time
 from urllib.request import urlopen
 
+comm = MPI.COMM_WORLD
+size = comm.Get_size()
+rank = comm.Get_rank()
+name = MPI.Get_processor_name()
 
 if __name__ == '__main__':
 
@@ -55,13 +59,9 @@ if __name__ == '__main__':
 
     print("Difficulty: {0}\n".format(difficulty))
     nonce = 0
-    comm = MPI.COMM_WORLD
-    size = comm.Get_size()
-    rank = comm.Get_rank()
-    name = MPI.Get_processor_name()
+    
     while True:
-        if nonce%size!=rank: continue
-        hash_value = hashlib.sha256('{0}{1}'.format(block_header, nonce).encode('utf-8')).hexdigest()
+        hash_value = hashlib.sha256(b'{0}{1}'.format(block_header, nonce).encode('utf-8')).hexdigest()
         print("Try Nonce: {0} => Hash Result: {1} | Rank: {2}, Size: {3}, Node: {4}".format(nonce, hash_value, rank, size, name))
         nonce += 1
 
