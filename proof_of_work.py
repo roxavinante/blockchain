@@ -61,7 +61,7 @@ if __name__ == '__main__':
         target = hash_value[0:difficulty]
         if target == ('0' * difficulty):
             break;
-
+    nonce -= 1
     end_time = time.time();
     mining_time = end_time - start_time
 
